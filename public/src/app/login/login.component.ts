@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   userData = {
     email: 'amitdubey8888@gmail.com',
-    password: '123456'
+    password: 'amit'
   };
   errors: any = [];
 
