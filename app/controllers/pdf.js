@@ -9,10 +9,9 @@ module.exports = {
     generatePdfByHtml: generatePdfByHtml,
     generatePdfByJson: generatePdfByJson,
 };
-
 function downloadPDF(req, res) {
     const pdf_name = req.params.pdf_name;
-    const pdfLocation = path.join('./static/pdf', pdf_name);
+    const pdfLocation = path.join('static/pdf', pdf_name);
     res.status(200);
     return res.download(pdfLocation, pdf_name);
 }
@@ -40,14 +39,14 @@ function generatePdfByUrl(req, res) {
                 res.json({
                     success: true,
                     message: 'PDF generated successfully!',
-                    pdf_url: `${config.root_url}/pdf/${pdf_id}.pdf`,
-                    download_url: `${config.root_url}/files/pdf/download/${pdf_id}.pdf`,
+                    pdf_url: `https://partners.hostbooks.com/pdf/${pdf_id}.pdf`,
+                    download_url: `https://partners.hostbooks.com/files/pdf/download/${pdf_id}.pdf`,
                 });
             })
             .catch(error => {
                 res.json({
                     success: false,
-                    message: 'Unable to generate pdf!',
+                    message: 'There seems to be an error, while generate pdf!',
                     error: error,
                 });
             });
@@ -60,10 +59,8 @@ function generatePdfByUrl(req, res) {
 }
 
 function generatePdfByHtml(req, res) {
-    const base64Data = Buffer.from(req.body.pdfData, 'base64');
-    const htmlData = base64Data.toString('ascii');
-    const pdfType = req.body.pdfType ? req.body.pdfType : 'A4';
-    if (htmlData) {
+    const pdfData = req.body.pdfData;
+    if (pdfData) {
         const options = {
             printOptions: {
                 displayHeaderFooter: false,
@@ -77,21 +74,24 @@ function generatePdfByHtml(req, res) {
         };
         const pdf_name = req.params.pdf_name;
         const pdf_id = pdf_name ? pdf_name : uuid();
+
+        let base64Data = Buffer.from(pdfData, 'base64');
+        const htmlData = base64Data.toString('ascii');
         htmlPdf
             .create(htmlData, options)
             .then(pdf => {
-                pdf.toFile(`./static/pdf/${pdf_id}.pdf`);
+                pdf.toFile(`static/pdf/${pdf_id}.pdf`);
                 res.json({
                     success: true,
                     message: 'PDF generated successfully!',
-                    pdf_url: `${config.root_url}/pdf/${pdf_id}.pdf`,
-                    download_url: `${config.root_url}/files/pdf/download/${pdf_id}.pdf`,
+                    pdf_url: `https://partners.hostbooks.com/pdf/${pdf_id}.pdf`,
+                    download_url: `https://partners.hostbooks.com/files/pdf/download/${pdf_id}.pdf`,
                 });
             })
             .catch(error => {
                 res.json({
                     success: false,
-                    message: 'Unable to generate pdf!',
+                    message: 'There seems to be an error, while generate pdf!',
                     error: error,
                 });
             });
@@ -130,14 +130,14 @@ function generatePdfByJson(req, res) {
                 res.json({
                     success: true,
                     message: 'PDF generated successfully!',
-                    pdf_url: `${config.root_url}/pdf/${pdf_id}.pdf`,
-                    download_url: `${config.root_url}/files/pdf/download/${pdf_id}.pdf`,
+                    pdf_url: `https://partners.hostbooks.com/pdf/${pdf_id}.pdf`,
+                    download_url: `https://partners.hostbooks.com/files/pdf/download/${pdf_id}.pdf`,
                 });
             })
             .catch(error => {
                 res.json({
                     success: false,
-                    message: 'Unable to generate pdf!',
+                    message: 'There seems to be an error, while generate pdf!',
                     error: error,
                 });
             });
