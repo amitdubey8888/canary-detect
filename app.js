@@ -38,7 +38,6 @@ mongoose.set('useFindAndModify', false);
 app.set('superSecret', config.serverSecret);
 
 app.use('/api', apiRoutes);
-app.use('/files', apiRoutes);
 
 app.listen(port);
 console.log('Demo project is running on http://localhost:3000');
