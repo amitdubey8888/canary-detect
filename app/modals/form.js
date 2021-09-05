@@ -8,6 +8,22 @@ module.exports = mongoose.model(
             type: String,
             default: null,
         },
+        form_id: {
+            type: String,
+            default: null,
+        },
+        form_class: {
+            type: String,
+            default: null,
+        },
+        field_id: {
+            type: String,
+            default: null,
+        },
+        field_class: {
+            type: String,
+            default: null,
+        },
         label_for: {
             type: String,
             default: null,
@@ -44,25 +60,9 @@ module.exports = mongoose.model(
             type: String,
             default: null,
         },
-        input_src: {
-            type: String,
-            default: null,
-        },
-        input_alt: {
-            type: String,
-            default: null,
-        },
-        input_min: {
-            type: Number,
-            default: null,
-        },
-        input_max: {
-            type: Number,
-            default: null,
-        },
-        input_pattern: {
-            type: Number,
-            default: null,
+        input_required: {
+            type: Boolean,
+            default: false,
         },
         input_disabled: {
             type: Boolean,

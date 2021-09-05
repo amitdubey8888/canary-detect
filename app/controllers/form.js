@@ -1,13 +1,15 @@
 const Form = require('../modals/Form');
+const _ = require('lodash');
 
 module.exports = {
     addForm: addForm,
     fetchForm: fetchForm,
+    updateForm: updateForm,
+    removeForm: removeForm,
 };
 
 function addForm(req, res) {
-    let form = new Form(req.body);
-    form.save()
+    Form.insertMany(req.body)
         .then(response => {
             res.status(200);
             return res.json({
@@ -38,7 +40,7 @@ function fetchForm(req, res) {
         return res.json({
             status: true,
             message: 'Form fetched successfully!',
-            data: response
+            data: _.groupBy(response, obj => obj.form_id)
         });
     }).catch(error => {
         res.status(200);
@@ -48,4 +50,41 @@ function fetchForm(req, res) {
             error: error
         });
     });
+}
+
+function updateForm(req, res) {
+    Form.findOneAndUpdate({ _id: new ObjectId(req.body._id) }, { $set: req.body }, { new: true })
+        .then(response => {
+            res.status(200);
+            return res.json({
+                success: true,
+                message: 'Form updated successfully!',
+                data: response
+            });
+        }).catch(error => {
+            res.status(400);
+            return res.json({
+                success: false,
+                message: 'Unable to update form!',
+                error: error
+            });
+        });
+}
+
+function removeForm(req, res) {
+    Form.findOneAndRemove({ _id: new ObjectId(req.body['_id']) })
+        .then(response => {
+            res.status(200);
+            return res.json({
+                success: true,
+                message: 'form removed successfully!'
+            });
+        }).catch(error => {
+            res.status(400);
+            return res.json({
+                success: false,
+                message: 'Unable to remove form!',
+                error: error
+            });
+        });
 }
