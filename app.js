@@ -9,6 +9,7 @@ const apiRoutes = require('./app/routes/routes');
 const port = process.env.PORT || 3000;
 const app = express();
 
+app.use(express.static(path.join(__dirname, 'static')));
 app.use(express.static(path.join(__dirname, 'public/dist')));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(express.json({ limit: '50mb' }));
@@ -37,6 +38,7 @@ mongoose.set('useFindAndModify', false);
 app.set('superSecret', config.serverSecret);
 
 app.use('/api', apiRoutes);
+app.use('/files', apiRoutes);
 
 app.listen(port);
 console.log('Canary detect is running on http://localhost:3000');
