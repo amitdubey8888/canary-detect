@@ -27,7 +27,13 @@ function addForm(req, res) {
 }
 
 function fetchForm(req, res) {
-    Form.find({}).then(response => {
+    let query = {};
+    if (req.query.form_name) {
+        query = {
+            form_name: { $regex: req.query.form_name, $options: 'i' }
+        };
+    }
+    Form.find(query).then(response => {
         res.status(200);
         return res.json({
             status: true,

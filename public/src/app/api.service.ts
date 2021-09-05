@@ -7,8 +7,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ApiService {
 
   url = 'http://localhost:3000/api';
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) { }
 
+  get(endpoint: any) {
+    const header = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost:3000',
+      'Access-Control-Allow-Credentials': 'true'
+    });
+    return this.http.get(`${this.url}/${endpoint}`, { headers: header });
   }
 
   post(endpoint: any, body: any) {
