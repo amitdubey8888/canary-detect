@@ -9,10 +9,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  formName: any = 'User Registration';
-
-  generatedFormData: any = [];
-
   inputTypes: any = [
     { type: "button" },
     { type: "checkbox" },
@@ -36,8 +32,9 @@ export class FormComponent implements OnInit {
     { type: "url" },
     { type: "week" }
   ];
-
   builderData: any = [] = [new FormBuilder()];
+  generatedFormData: any = [];
+  generatedForm: any = [];
 
   constructor(public router: Router, public apiService: ApiService) { }
 
@@ -50,7 +47,6 @@ export class FormComponent implements OnInit {
       this.generatedFormData = res['data'];
       this.buildForm();
     }, (err) => {
-      console.log(err);
       Swal.fire({
         title: 'Error',
         text: 'Oops, something went wrong!',
@@ -61,7 +57,25 @@ export class FormComponent implements OnInit {
   }
 
   buildForm() {
-    console.log(this.generatedFormData);
+    this.generatedForm = [];
+    Object.keys(this.generatedFormData).forEach((key: any) => {
+      let formField = ``;
+      this.generatedFormData[key].forEach((element: any) => {
+        formField = formField + `
+          <div class="${element.field_class}" id="${element.field_id}">
+            <label for="${element.label_for}" class="${element.label_class}">${element.label_name}</label>
+            <input type="${element.input_type}" id="${element.input_id}" class="${element.input_class}" name="${element.input_name}" />
+          </div>
+        `;
+      });
+      let form = `
+      <form id="${this.generatedFormData[key][0]['form_id']}" class="${this.generatedFormData[key][0]['form_class']}">
+        <div class="form-heading">${this.generatedFormData[key][0]['form_name']}</div>
+        <div class="form-content">${formField}</div>
+      </form>
+      `;
+      this.generatedForm.push(form);
+    });
   }
 
   addField() {
@@ -88,9 +102,7 @@ export class FormComponent implements OnInit {
         element.field_class = 'form-group';
       }
     });
-    console.log(finalData);
     this.apiService.post(`form/add`, finalData).subscribe((res: any) => {
-      console.log(res);
       Swal.fire({
         title: 'Success',
         text: res.message,
@@ -101,7 +113,6 @@ export class FormComponent implements OnInit {
         this.builderData = [new FormBuilder()];
       });
     }, (err) => {
-      console.log(err);
       Swal.fire({
         title: 'Error',
         text: 'Oops, something went wrong!',

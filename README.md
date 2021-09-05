@@ -1,7 +1,7 @@
-# Canary Detect
+# Demo Project
 
 
-## Live URL: https://canary-detect.herokuapp.com
+## Live URL: https://demo-project.herokuapp.com
 
 
 ## Quick Start
@@ -9,13 +9,13 @@
   Clone the repository:
 
 ```bash
-$ git clone https://github.com/amitdubey8888/canary-detect.git
+$ git clone https://github.com/amitdubey8888/demo-project.git
 ```
 
   Goto project directory:
 
 ```bash
-$ cd canary-detect
+$ cd demo-project
 ```
 
   Install dependencies:

@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "canary-detect": {
+    "demo-project-detect": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "canary-detect:build:production"
+              "browserTarget": "demo-project-detect:build:production"
             },
             "development": {
-              "browserTarget": "canary-detect:build:development"
+              "browserTarget": "demo-project-detect:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "canary-detect:build"
+            "browserTarget": "demo-project-detect:build"
           }
         },
         "test": {
@@ -110,5 +110,5 @@
       }
     }
   },
-  "defaultProject": "canary-detect"
+  "defaultProject": "demo-project-detect"
 }

@@ -11,6 +11,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from './api.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { SanitizePipe } from './pipe/sanitize.pipe';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     LoginComponent,
     RegisterComponent,
     WelcomeComponent,
+    SanitizePipe,
   ],
   imports: [
     BrowserModule,

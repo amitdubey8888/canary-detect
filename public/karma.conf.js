@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/canary-detect'),
+      dir: require('path').join(__dirname, './coverage/demo-project-detect'),
       subdir: '.',
       reporters: [
         { type: 'html' },

@@ -83,10 +83,8 @@
         <div class="col-12">
             <div class="heading">Generated Form</div>
         </div>
-        <div class="col-12">
-            <div class="generated-form">
-
-            </div>
+        <div class="col-12" *ngFor="let form of generatedForm;">
+            <div class="generated-form" [innerHtml]="form | sanitize"></div>
         </div>
     </div>
 </div>
